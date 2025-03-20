@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steel Profiles Viewer</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.prod.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      background-color: #1e1e2e;
+      color: #e0e0e0;
+    }
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+    }
+    .sidebar {
+      width: 300px;
+      padding: 20px;
+      background-color: #181825;
+      color: white;
+    }
+    .sidebar h2 {
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+    .filter-section {
+      margin-bottom: 30px;
+    }
+    .filter-section h3 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      color: #ecf0f1;
+    }
+    .filter-item {
+      margin-bottom: 10px;
+    }
+    .filter-item label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .filter-item input[type="text"],
+    .filter-item input[type="number"],
+    .filter-item select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #7f8c8d;
+      border-radius: 4px;
+      background-color: #34495e;
+      color: white;
+    }
+    button.clear-filters {
+      width: 100%;
+      padding: 10px;
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    button.clear-filters:hover {
+      background-color: #c0392b;
+    }
+    .main-content {
+      flex: 1;
+      padding: 20px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .header h1 {
+      color: #cdd6f4;
+    }
+    .total-count {
+      font-size: 1rem;
+      color: #bac2de;
+    }
+    .profiles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .profile-card {
+      background-color: #313244;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .profile-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+    .profile-info {
+      padding: 15px;
+    }
+    .profile-name {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #cdd6f4;
+    }
+    .profile-details {
+      color: #bac2de;
+      font-size: 0.9rem;
+    }
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background-color: #313244;
+      border-radius: 8px;
+      max-width: 800px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    }
+    .modal-header {
+      padding: 20px;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-title {
+      font-size: 1.5rem;
+      color: #cdd6f4;
+    }
+    .close-button {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #7f8c8d;
+    }
+    .close-button:hover {
+      color: #2c3e50;
+    }
+    .modal-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .profile-shape {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+    }
+    .profile-detailed-info {
+      width: 100%;
+    }
+    .profile-specs {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    .profile-specs th,
+    .profile-specs td {
+      border: 1px solid #45475a;
+      padding: 10px;
+      text-align: left;
+    }
+    .profile-specs th {
+      background-color: #1e1e2e;
+      font-weight: bold;
+      color: #cdd6f4;
+    }
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 50px;
+      color: #bac2de;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="app-container">
+      <!-- Sidebar with filters -->
+      <div class="sidebar">
+        <h2>Filter Steel Profiles</h2>
+        
+        <!-- Profile Type Filter -->
+        <div class="filter-section">
+          <h3>Profile Type</h3>
+          <div class="filter-item">
+            <select v-model="filters.type">
+              <option value="">All Types</option>
+              <option v-for="type in profileTypes" :key="type" :value="type">{{ type }}</option>
+            </select>
+          </div>
+        </div>
+        
+        <!-- Size Range Filter -->
+        <div class="filter-section">
+          <h3>Size Range</h3>
+          <div class="filter-item">
+            <label>Min Height/Diameter (mm)</label>
+            <input type="number" v-model.number="filters.minSize" min="0">
+          </div>
+          <div class="filter-item">
+            <label>Max Height/Diameter (mm)</label>
+            <input type="number" v-model.number="filters.maxSize" min="0">
+          </div>
+        </div>
+        
+        <!-- Weight Range Filter -->
+        <div class="filter-section">
+          <h3>Weight Range</h3>
+          <div class="filter-item">
+            <label>Min Weight (kg/m)</label>
+            <input type="number" v-model.number="filters.minWeight" min="0" step="0.1">
+          </div>
+          <div class="filter-item">
+            <label>Max Weight (kg/m)</label>
+            <input type="number" v-model.number="filters.maxWeight" min="0" step="0.1">
+          </div>
+        </div>
+        
+        <!-- Search by Name -->
+        <div class="filter-section">
+          <h3>Search</h3>
+          <div class="filter-item">
+            <input type="text" v-model="filters.search" placeholder="Search by name or designation...">
+          </div>
+        </div>
+        
+        <!-- Material -->
+        <div class="filter-section">
+          <h3>Material Grade</h3>
+          <div class="filter-item">
+            <select v-model="filters.material">
+              <option value="">All Grades</option>
+              <option v-for="material in materialGrades" :key="material" :value="material">{{ material }}</option>
+            </select>
+          </div>
+        </div>
+        
+        <!-- Clear Filters Button -->
+        <button class="clear-filters" @click="clearFilters">Clear All Filters</button>
+      </div>
+      
+      <!-- Main Content Area -->
+      <div class="main-content">
+        <div class="header">
+          <h1>Steel Profiles</h1>
+          <div class="total-count">{{ filteredProfiles.length }} profiles found</div>
+        </div>
+        
+        <div class="profiles-grid">
+          <!-- Steel Profile Cards -->
+          <template v-if="filteredProfiles.length > 0">
+            <div 
+              class="profile-card" 
+              v-for="profile in filteredProfiles" 
+              :key="profile.id"
+              @click="selectProfile(profile)"
+            >
+              <div class="profile-info">
+                <div class="profile-name">{{ profile.name }}</div>
+                <div class="profile-details">
+                  <div>{{ profile.type }}</div>
+                  <div>{{ profile.dimensions }}</div>
+                  <div>{{ profile.weight }} kg/m</div>
+                </div>
+              </div>
+            </div>
+          </template>
+          
+          <!-- No Results Message -->
+          <div v-else class="no-results">
+            No steel profiles match your filters. Try adjusting your criteria.
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Profile Detail Modal -->
+    <div class="modal-backdrop" v-if="selectedProfile" @click.self="closeModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">{{ selectedProfile.name }}</h2>
+          <button class="close-button" @click="closeModal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <!-- Profile Shape/Image -->
+          <img class="profile-shape" :src="selectedProfile.shape" alt="Profile Shape">
+          
+          <!-- Profile Details -->
+          <div class="profile-detailed-info">
+            <table class="profile-specs">
+              <tr>
+                <th>Property</th>
+                <th>Value</th>
+              </tr>
+              <tr>
+                <td>Type</td>
+                <td>{{ selectedProfile.type }}</td>
+              </tr>
+              <tr>
+                <td>Dimensions</td>
+                <td>{{ selectedProfile.dimensions }}</td>
+              </tr>
+              <tr>
+                <td>Weight</td>
+                <td>{{ selectedProfile.weight }} kg/m</td>
+              </tr>
+              <tr>
+                <td>Cross Section Area</td>
+                <td>{{ selectedProfile.area }} cm²</td>
+              </tr>
+              <tr>
+                <td>Moment of Inertia (Ix)</td>
+                <td>{{ selectedProfile.inertiaIx }} cm⁴</td>
+              </tr>
+              <tr>
+                <td>Moment of Inertia (Iy)</td>
+                <td>{{ selectedProfile.inertiaIy }} cm⁴</td>
+              </tr>
+              <tr>
+                <td>Material</td>
+                <td>{{ selectedProfile.material }}</td>
+              </tr>
+              <tr>
+                <td>Standard</td>
+                <td>{{ selectedProfile.standard }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Wait for Vue to be fully loaded
+    window.onload = function() {
+      // Create the Vue app
+      const app = Vue.createApp({
+        data() {
+          return {
+            profiles: [],
+            selectedProfile: null,
+            filters: {
+              type: '',
+              minSize: null,
+              maxSize: null,
+              minWeight: null,
+              maxWeight: null,
+              search: '',
+              material: ''
+            }
+          };
+        },
+        
+        computed: {
+          profileTypes() {
+            const types = new Set(this.profiles.map(profile => profile.type));
+            return [...types];
+          },
+          
+          materialGrades() {
+            const materials = new Set(this.profiles.map(profile => profile.material));
+            return [...materials];
+          },
+          
+          filteredProfiles() {
+            return this.profiles.filter(profile => {
+              // Type filter
+              if (this.filters.type && profile.type !== this.filters.type) {
+                return false;
+              }
+              
+              // Size filter (using the first dimension which is typically height or diameter)
+              const size = parseFloat(profile.dimensions.split('x')[0]);
+              if (this.filters.minSize && size < this.filters.minSize) {
+                return false;
+              }
+              if (this.filters.maxSize && size > this.filters.maxSize) {
+                return false;
+              }
+              
+              // Weight filter
+              if (this.filters.minWeight && profile.weight < this.filters.minWeight) {
+                return false;
+              }
+              if (this.filters.maxWeight && profile.weight > this.filters.maxWeight) {
+                return false;
+              }
+              
+              // Search by name or designation
+              if (this.filters.search) {
+                const searchTerm = this.filters.search.toLowerCase();
+                if (!profile.name.toLowerCase().includes(searchTerm) && 
+                    !profile.dimensions.toLowerCase().includes(searchTerm)) {
+                  return false;
+                }
+              }
+              
+              // Material filter
+              if (this.filters.material && profile.material !== this.filters.material) {
+                return false;
+              }
+              
+              return true;
+            });
+          }
+        },
+        
+        methods: {
+          selectProfile(profile) {
+            this.selectedProfile = profile;
+          },
+          
+          closeModal() {
+            this.selectedProfile = null;
+          },
+          
+          clearFilters() {
+            this.filters = {
+              type: '',
+              minSize: null,
+              maxSize: null,
+              minWeight: null,
+              maxWeight: null,
+              search: '',
+              material: ''
+            };
+          },
+          
+          // Generate sample steel profile data
+          generateProfiles() {
+            const types = ['I-Beam', 'H-Beam', 'Channel', 'Angle', 'Pipe', 'Tube', 'T-Bar', 'Flat Bar'];
+            const materials = ['S235', 'S275', 'S355', 'S420', 'S460'];
+            const standards = ['EN 10025', 'EN 10210', 'EN 10219', 'ASTM A36', 'ASTM A572'];
+            
+            const generatedProfiles = [];
+            
+            // I-Beams (IPE series)
+            for (let height = 80; height <= 600; height += 40) {
+              const width = height * 0.5;
+              const weight = (height * width * 0.0001 * 7.85).toFixed(2);
+              const area = (height * width * 0.01).toFixed(2);
+              const inertiaIx = (width * Math.pow(height, 3) / 12).toFixed(0);
+              const inertiaIy = (height * Math.pow(width, 3) / 12).toFixed(0);
+              
+              generatedProfiles.push({
+                id: `ipe-${height}`,
+                name: `IPE ${height}`,
+                type: 'I-Beam',
+                dimensions: `${height}x${width}x${width * 0.1} mm`,
+                weight: parseFloat(weight),
+                area: parseFloat(area),
+                inertiaIx: parseFloat(inertiaIx),
+                inertiaIy: parseFloat(inertiaIy),
+                material: materials[Math.floor(Math.random() * materials.length)],
+                standard: standards[Math.floor(Math.random() * standards.length)],
+                shape: this.generateIBeamSVG(height, width, width * 0.1)
+              });
+            }
+            
+            // H-Beams (HEA series)
+            for (let height = 100; height <= 500; height += 50) {
+              const width = height * 0.9;
+              const weight = (height * width * 0.00012 * 7.85).toFixed(2);
+              const area = (height * width * 0.012).toFixed(2);
+              const inertiaIx = (width * Math.pow(height, 3) / 12).toFixed(0);
+              const inertiaIy = (height * Math.pow(width, 3) / 12).toFixed(0);
+              
+              generatedProfiles.push({
+                id: `hea-${height}`,
+                name: `HEA ${height}`,
+                type: 'H-Beam',
+                dimensions: `${height}x${width}x${width * 0.15} mm`,
+                weight: parseFloat(weight),
+                area: parseFloat(area),
+                inertiaIx: parseFloat(inertiaIx),
+                inertiaIy: parseFloat(inertiaIy),
+                material: materials[Math.floor(Math.random() * materials.length)],
+                standard: standards[Math.floor(Math.random() * standards.length)],
+                shape: this.generateHBeamSVG(height, width, width * 0.15)
+              });
+            }
+            
+            // Channels (UPE series)
+            for (let height = 80; height <= 400; height += 40) {
+              const width = height * 0.4;
+              const weight = (height * width * 0.00008 * 7.85).toFixed(2);
+              const area = (height * width * 0.008).toFixed(2);
+              const inertiaIx = (width * Math.pow(height, 3) / 12).toFixed(0);
+              const inertiaIy = (height * Math.pow(width, 3) / 12).toFixed(0);
+              
+              generatedProfiles.push({
+                id: `upe-${height}`,
+                name: `UPE ${height}`,
+                type: 'Channel',
+                dimensions: `${height}x${width}x${width * 0.1} mm`,
+                weight: parseFloat(weight),
+                area: parseFloat(area),
+                inertiaIx: parseFloat(inertiaIx),
+                inertiaIy: parseFloat(inertiaIy),
+                material: materials[Math.floor(Math.random() * materials.length)],
+                standard: standards[Math.floor(Math.random() * standards.length)],
+                shape: this.generateChannelSVG(height, width, width * 0.1)
+              });
+            }
+            
+            // Angles (L series)
+            for (let size = 30; size <= 200; size += 20) {
+              const thickness = size * 0.1;
+              const weight = (size * 2 * thickness * 0.00008 * 7.85).toFixed(2);
+              const area = (size * 2 * thickness * 0.01).toFixed(2);
+              const inertiaIx = (thickness * Math.pow(size, 3) / 12).toFixed(0);
+              const inertiaIy = (thickness * Math.pow(size, 3) / 12).toFixed(0);
+              
+              generatedProfiles.push({
+                id: `angle-${size}`,
+                name: `L ${size}x${size}x${thickness}`,
+                type: 'Angle',
+                dimensions: `${size}x${size}x${thickness} mm`,
+                weight: parseFloat(weight),
+                area: parseFloat(area),
+                inertiaIx: parseFloat(inertiaIx),
+                inertiaIy: parseFloat(inertiaIy),
+                material: materials[Math.floor(Math.random() * materials.length)],
+                standard: standards[Math.floor(Math.random() * standards.length)],
+                shape: this.generateAngleSVG(size, size, thickness)
+              });
+            }
+            
+            // Pipes
+            for (let diameter = 20; diameter <= 400; diameter += 20) {
+              const thickness = diameter * 0.05;
+              const weight = (Math.PI * (diameter - thickness) * thickness * 0.00008 * 7.85).toFixed(2);
+              const area = (Math.PI * (Math.pow(diameter/2, 2) - Math.pow((diameter/2 - thickness), 2))).toFixed(2);
+              const inertia = (Math.PI * (Math.pow(diameter/2, 4) - Math.pow((diameter/2 - thickness), 4)) / 4).toFixed(0);
+              
+              generatedProfiles.push({
+                id: `pipe-${diameter}`,
+                name: `Pipe ${diameter}x${thickness}`,
+                type: 'Pipe',
+                dimensions: `Ø${diameter}x${thickness} mm`,
+                weight: parseFloat(weight),
+                area: parseFloat(area),
+                inertiaIx: parseFloat(inertia),
+                inertiaIy: parseFloat(inertia),
+                material: materials[Math.floor(Math.random() * materials.length)],
+                standard: standards[Math.floor(Math.random() * standards.length)],
+                shape: this.generatePipeSVG(diameter, thickness)
+              });
+            }
+            
+            // Square Tubes
+            for (let size = 20; size <= 200; size += 20) {
+              const thickness = size * 0.05;
+              const weight = (2 * (size + size - 2 * thickness) * thickness * 0.00008 * 7.85).toFixed(2);
+              const area = (2 * (size + size - 2 * thickness) * thickness * 0.01).toFixed(2);
+              const inertiaIx = ((Math.pow(size, 4) - Math.pow(size - 2 * thickness, 4)) / 12).toFixed(0);
+              
+              generatedProfiles.push({
+                id: `tube-${size}`,
+                name: `SHS ${size}x${size}x${thickness}`,
+                type: 'Tube',
+                dimensions: `${size}x${size}x${thickness} mm`,
+                weight: parseFloat(weight),
+                area: parseFloat(area),
+                inertiaIx: parseFloat(inertiaIx),
+                inertiaIy: parseFloat(inertiaIx),
+                material: materials[Math.floor(Math.random() * materials.length)],
+                standard: standards[Math.floor(Math.random() * standards.length)],
+                shape: this.generateTubeSVG(size, size, thickness)
+              });
+            }
+            
+            return generatedProfiles;
+          },
+          
+          // SVG generators for each profile type
+          generateIBeamSVG(height, width, thickness) {
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width + 10} ${height + 10}" width="200" height="${200 * (height/width)}">
+              <rect x="5" y="5" width="${width}" height="${thickness}" fill="#2c3e50" />
+              <rect x="${(width - thickness) / 2 + 5}" y="${thickness + 5}" width="${thickness}" height="${height - 2 * thickness}" fill="#2c3e50" />
+              <rect x="5" y="${height - thickness + 5}" width="${width}" height="${thickness}" fill="#2c3e50" />
+            </svg>`;
+            return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+          },
+          
+          generateHBeamSVG(height, width, thickness) {
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width + 10} ${height + 10}" width="200" height="${200 * (height/width)}">
+              <rect x="5" y="5" width="${width}" height="${thickness}" fill="#2c3e50" />
+              <rect x="${(width - thickness) / 2 + 5}" y="${thickness + 5}" width="${thickness}" height="${height - 2 * thickness}" fill="#2c3e50" />
+              <rect x="5" y="${height - thickness + 5}" width="${width}" height="${thickness}" fill="#2c3e50" />
+            </svg>`;
+            return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+          },
+          
+          generateChannelSVG(height, width, thickness) {
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width + 10} ${height + 10}" width="200" height="${200 * (height/width)}">
+              <path d="M5,5 H${width + 5} V${thickness + 5} H${thickness + 5} V${height - thickness + 5} H${width + 5} V${height + 5} H5 V5 Z" fill="#2c3e50" />
+            </svg>`;
+            return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+          },
+          
+          generateAngleSVG(height, width, thickness) {
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width + 10} ${height + 10}" width="200" height="200">
+              <path d="M5,5 H${thickness + 5} V${height + 5} H${width + 5} V${height - thickness + 5} H${thickness + 5} V5 Z" fill="#2c3e50" />
+            </svg>`;
+            return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+          },
+          
+          generatePipeSVG(diameter, thickness) {
+            const radius = diameter / 2;
+            const innerRadius = radius - thickness;
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${diameter + 10} ${diameter + 10}" width="200" height="200">
+              <circle cx="${radius + 5}" cy="${radius + 5}" r="${radius}" fill="#2c3e50" />
+              <circle cx="${radius + 5}" cy="${radius + 5}" r="${innerRadius}" fill="#1e1e2e" />
+            </svg>`;
+            return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+          },
+          
+          generateTubeSVG(width, height, thickness) {
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width + 10} ${height + 10}" width="200" height="200">
+              <rect x="5" y="5" width="${width}" height="${height}" fill="#2c3e50" />
+              <rect x="${thickness + 5}" y="${thickness + 5}" width="${width - 2 * thickness}" height="${height - 2 * thickness}" fill="#1e1e2e" />
+            </svg>`;
+            return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+          }
+        },
+        
+        mounted() {
+          // Generate profiles data when the component is mounted
+          this.profiles = this.generateProfiles();
+        }
+      });
+      
+      // Mount the app
+      app.mount('#app');
+    };
+  </script>
+</body>
+</html>
