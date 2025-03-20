@@ -599,55 +599,59 @@
           },
           
           // SVG generators for each profile type
-          generateIBeamSVG(height, width, thickness) {
-            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width + 10} ${height + 10}" width="200" height="${200 * (height/width)}">
-              <rect x="5" y="5" width="${width}" height="${thickness}" fill="#2c3e50" />
-              <rect x="${(width - thickness) / 2 + 5}" y="${thickness + 5}" width="${thickness}" height="${height - 2 * thickness}" fill="#2c3e50" />
-              <rect x="5" y="${height - thickness + 5}" width="${width}" height="${thickness}" fill="#2c3e50" />
-            </svg>`;
-            return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-          },
-          
-          generateHBeamSVG(height, width, thickness) {
-            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width + 10} ${height + 10}" width="200" height="${200 * (height/width)}">
-              <rect x="5" y="5" width="${width}" height="${thickness}" fill="#2c3e50" />
-              <rect x="${(width - thickness) / 2 + 5}" y="${thickness + 5}" width="${thickness}" height="${height - 2 * thickness}" fill="#2c3e50" />
-              <rect x="5" y="${height - thickness + 5}" width="${width}" height="${thickness}" fill="#2c3e50" />
-            </svg>`;
-            return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-          },
-          
-          generateChannelSVG(height, width, thickness) {
-            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width + 10} ${height + 10}" width="200" height="${200 * (height/width)}">
-              <path d="M5,5 H${width + 5} V${thickness + 5} H${thickness + 5} V${height - thickness + 5} H${width + 5} V${height + 5} H5 V5 Z" fill="#2c3e50" />
-            </svg>`;
-            return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-          },
-          
-          generateAngleSVG(height, width, thickness) {
-            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width + 10} ${height + 10}" width="200" height="200">
-              <path d="M5,5 H${thickness + 5} V${height + 5} H${width + 5} V${height - thickness + 5} H${thickness + 5} V5 Z" fill="#2c3e50" />
-            </svg>`;
-            return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-          },
-          
-          generatePipeSVG(diameter, thickness) {
-            const radius = diameter / 2;
-            const innerRadius = radius - thickness;
-            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${diameter + 10} ${diameter + 10}" width="200" height="200">
-              <circle cx="${radius + 5}" cy="${radius + 5}" r="${radius}" fill="#2c3e50" />
-              <circle cx="${radius + 5}" cy="${radius + 5}" r="${innerRadius}" fill="#1e1e2e" />
-            </svg>`;
-            return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-          },
-          
-          generateTubeSVG(width, height, thickness) {
-            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width + 10} ${height + 10}" width="200" height="200">
-              <rect x="5" y="5" width="${width}" height="${height}" fill="#2c3e50" />
-              <rect x="${thickness + 5}" y="${thickness + 5}" width="${width - 2 * thickness}" height="${height - 2 * thickness}" fill="#1e1e2e" />
-            </svg>`;
-            return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-          }
+// ...existing code...
+
+generateIBeamSVG(height, width, thickness) {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width + 10} ${height + 10}" width="200" height="${200 * (height/width)}">
+    <rect x="5" y="5" width="${width}" height="${thickness}" fill="#cdd6f4" />
+    <rect x="${(width - thickness) / 2 + 5}" y="${thickness + 5}" width="${thickness}" height="${height - 2 * thickness}" fill="#cdd6f4" />
+    <rect x="5" y="${height - thickness + 5}" width="${width}" height="${thickness}" fill="#cdd6f4" />
+  </svg>`;
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+},
+
+generateHBeamSVG(height, width, thickness) {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width + 10} ${height + 10}" width="200" height="${200 * (height/width)}">
+    <rect x="5" y="5" width="${width}" height="${thickness}" fill="#cdd6f4" />
+    <rect x="${(width - thickness) / 2 + 5}" y="${thickness + 5}" width="${thickness}" height="${height - 2 * thickness}" fill="#cdd6f4" />
+    <rect x="5" y="${height - thickness + 5}" width="${width}" height="${thickness}" fill="#cdd6f4" />
+  </svg>`;
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+},
+
+generateChannelSVG(height, width, thickness) {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width + 10} ${height + 10}" width="200" height="${200 * (height/width)}">
+    <path d="M5,5 H${width + 5} V${thickness + 5} H${thickness + 5} V${height - thickness + 5} H${width + 5} V${height + 5} H5 V5 Z" fill="#cdd6f4" />
+  </svg>`;
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+},
+
+generateAngleSVG(height, width, thickness) {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width + 10} ${height + 10}" width="200" height="200">
+    <path d="M5,5 H${thickness + 5} V${height + 5} H${width + 5} V${height - thickness + 5} H${thickness + 5} V5 Z" fill="#cdd6f4" />
+  </svg>`;
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+},
+
+generatePipeSVG(diameter, thickness) {
+  const radius = diameter / 2;
+  const innerRadius = radius - thickness;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${diameter + 10} ${diameter + 10}" width="200" height="200">
+    <circle cx="${radius + 5}" cy="${radius + 5}" r="${radius}" fill="#cdd6f4" />
+    <circle cx="${radius + 5}" cy="${radius + 5}" r="${innerRadius}" fill="#1e1e2e" />
+  </svg>`;
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+},
+
+generateTubeSVG(width, height, thickness) {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width + 10} ${height + 10}" width="200" height="200">
+    <rect x="5" y="5" width="${width}" height="${height}" fill="#cdd6f4" />
+    <rect x="${thickness + 5}" y="${thickness + 5}" width="${width - 2 * thickness}" height="${height - 2 * thickness}" fill="#1e1e2e" />
+  </svg>`;
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+}
+
+// ...existing code...
         },
         
         mounted() {
