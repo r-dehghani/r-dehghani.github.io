@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="fa-IR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="وکیل حرفه‌ای در تهران - خدمات حقوقی تخصصی در زمینه‌های مدنی، جزایی، خانواده و تجاری">
+    <meta name="keywords" content="وکیل تهران, مشاوره حقوقی, خدمات وکالت, وکیل دادگستری تهران, مشاور حقوقی">
+    <meta name="author" content="Law Office Tehran">
+    <title>وکیل دادگستری تهران | مشاوره حقوقی تخصصی</title>
+    
+    <!-- Schema.org markup for Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LegalService",
+      "name": "Law Office Tehran",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Tehran",
+        "addressRegion": "Tehran Province",
+        "addressCountry": "IR"
+      },
+      "telephone": "+98-21-12345678",
+      "openingHours": "Mo,Tu,We,Th,Su 09:00-17:00",
+      "priceRange": "$$"
+    }
+    </script>
+    
+    <!-- Add IRANYekan font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'IRANYekan';
+            src: url('https://cdn.jsdelivr.net/gh/rastikerdar/iranyekan-font@master/dist/iranyekan-thin.woff2') format('woff2'),
+                 url('https://cdn.jsdelivr.net/gh/rastikerdar/iranyekan-font@master/dist/iranyekan-thin.woff') format('woff');
+            font-weight: 100;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'IRANYekan';
+            src: url('https://cdn.jsdelivr.net/gh/rastikerdar/iranyekan-font@master/dist/iranyekan-light.woff2') format('woff2'),
+                 url('https://cdn.jsdelivr.net/gh/rastikerdar/iranyekan-font@master/dist/iranyekan-light.woff') format('woff');
+            font-weight: 300;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'IRANYekan';
+            src: url('https://cdn.jsdelivr.net/gh/rastikerdar/iranyekan-font@master/dist/iranyekan-regular.woff2') format('woff2'),
+                 url('https://cdn.jsdelivr.net/gh/rastikerdar/iranyekan-font@master/dist/iranyekan-regular.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'IRANYekan';
+            src: url('https://cdn.jsdelivr.net/gh/rastikerdar/iranyekan-font@master/dist/iranyekan-medium.woff2') format('woff2'),
+                 url('https://cdn.jsdelivr.net/gh/rastikerdar/iranyekan-font@master/dist/iranyekan-medium.woff') format('woff');
+            font-weight: 500;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'IRANYekan';
+            src: url('https://cdn.jsdelivr.net/gh/rastikerdar/iranyekan-font@master/dist/iranyekan-bold.woff2') format('woff2'),
+                 url('https://cdn.jsdelivr.net/gh/rastikerdar/iranyekan-font@master/dist/iranyekan-bold.woff') format('woff');
+            font-weight: 700;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'IRANYekan';
+            src: url('https://cdn.jsdelivr.net/gh/rastikerdar/iranyekan-font@master/dist/iranyekan-extrabold.woff2') format('woff2'),
+                 url('https://cdn.jsdelivr.net/gh/rastikerdar/iranyekan-font@master/dist/iranyekan-extrabold.woff') format('woff');
+            font-weight: 800;
+            font-style: normal;
+        }
+        
+        :root {
+            --primary-color: #1a1a1a;
+            --secondary-color: #333333;
+            --accent-color: #c89b3c;
+            --text-color: #f5f5f5;
+            --text-secondary: #bbbbbb;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'IRANYekan', 'Tahoma', sans-serif;
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            direction: rtl;
+        }
+        
+        header {
+            background-color: var(--secondary-color);
+            padding: 1rem;
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-family: 'IRANYekan', 'Tahoma', sans-serif;
+        }
+        
+        /* English text will use the fonts from dariush-dehghani.ir */
+        .en-text {
+            font-family: 'Poppins', 'Montserrat', sans-serif;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .mobile-menu {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-color);
+            margin: 5px 0;
+            transition: var(--transition);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 5rem auto 2rem;
+            padding: 0 1rem;
+        }
+        
+        section {
+            margin-bottom: 4rem;
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+        }
+        
+        .btn:hover {
+            background-color: #b38a2d;
+            transform: translateY(-2px);
+        }
+        
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+        }
+        
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+        
+        .profile-img {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-color);
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background-color: var(--secondary-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+        
+        .testimonials {
+            text-align: center;
+        }
+        
+        .contact {
+            background-color: var(--secondary-color);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex: 1 0 250px;
+        }
+        
+        .contact-icon {
+            margin-left: 0.75rem;
+            color: var(--accent-color);
+            font-size: 1.2rem;
+        }
+        
+        form {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        input, textarea {
+            padding: 0.75rem;
+            background-color: var(--primary-color);
+            border: 1px solid #444;
+            border-radius: 4px;
+            color: var(--text-color);
+            width: 100%;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+        
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        footer {
+            background-color: var(--secondary-color);
+            text-align: center;
+            padding: 2rem 1rem;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-icon {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            margin: 0 0.75rem;
+            transition: var(--transition);
+        }
+        
+        .social-icon:hover {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive */
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                right: -100%;
+                flex-direction: column;
+                background-color: var(--secondary-color);
+                width: 100%;
+                text-align: center;
+                transition: var(--transition);
+                padding: 2rem 0;
+                box-shadow: var(--shadow);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .nav-links li {
+                margin: 1rem 0;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .mobile-menu.active .bar:nth-child(1) {
+                transform: rotate(45deg) translate(5px, 5px);
+            }
+            
+            .mobile-menu.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .mobile-menu.active .bar:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -8px);
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .profile-img {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">دفتر حقوقی تهران</a>
+            <ul class="nav-links">
+                <li><a href="#home">خانه</a></li>
+                <li><a href="#about">درباره ما</a></li>
+                <li><a href="#services">خدمات</a></li>
+                <li><a href="#contact">تماس</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </nav>
+    </header>
+    
+    <main>
+        <section id="home" class="hero">
+            <h1>خدمات حقوقی تخصصی در تهران</h1>
+            <p>با بیش از ۱۵ سال تجربه در دعاوی حقوقی، ما به شما کمک می‌کنیم تا حقوق قانونی خود را به بهترین شکل حفظ کنید.</p>
+            <a href="#contact" class="btn">مشاوره رایگان</a>
+        </section>
+        
+        <section id="about">
+            <div class="profile">
+                <img src="/api/placeholder/400/400" alt="وکیل دادگستری تهران" class="profile-img">
+                <h2>استاد علی محمدی</h2>
+                <p>وکیل پایه یک دادگستری و مشاور حقوقی</p>
+            </div>
+            
+            <p>استاد علی محمدی فارغ‌التحصیل دانشگاه تهران و دارای بیش از ۱۵ سال سابقه وکالت در پرونده‌های مختلف حقوقی و کیفری است. ایشان با تخصص در زمینه‌های حقوق مدنی، تجاری، خانواده و دعاوی ملکی، همواره به دنبال دفاع از حقوق موکلین خود با بالاترین استانداردهای حرفه‌ای بوده‌اند.</p>
+            
+            <p>با کسب تجربه در دادگاه‌های مختلف و آشنایی عمیق با قوانین و رویه‌های قضایی، ما به شما اطمینان می‌دهیم که پرونده شما با دقت و تخصص لازم پیگیری خواهد شد.</p>
+        </section>
+        
+        <section id="services">
+            <h2>خدمات حقوقی</h2>
+            <div class="services">
+                <div class="service-card">
+                    <div class="service-icon">⚖️</div>
+                    <h3>حقوق مدنی</h3>
+                    <p>دعاوی قراردادی، مسئولیت مدنی، دعاوی مالکیت، ارث و وصیت، دعاوی مطالبه وجه و خسارت</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">👨‍👩‍👧</div>
+                    <h3>حقوق خانواده</h3>
+                    <p>طلاق توافقی و غیر توافقی، حضانت فرزندان، مهریه، نفقه، تقسیم اموال، ازدواج و عقدنامه</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🏢</div>
+                    <h3>حقوق املاک</h3>
+                    <p>دعاوی ملکی، مسائل حقوقی آپارتمان‌ها، پیش‌فروش ساختمان، سرقفلی و حق کسب و پیشه</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">💼</div>
+                    <h3>حقوق تجارت</h3>
+                    <p>تأسیس و ثبت شرکت، قراردادهای تجاری، دعاوی چک و سفته، ورشکستگی، حقوق مالکیت فکری</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">👨‍⚖️</div>
+                    <h3>حقوق کیفری</h3>
+                    <p>دفاع در پرونده‌های کیفری، جرایم مالی، کلاهبرداری، جعل، سرقت و سایر جرایم</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">📝</div>
+                    <h3>مشاوره حقوقی</h3>
+                    <p>ارائه مشاوره در تمامی زمینه‌های حقوقی، تنظیم قراردادها، صلح‌نامه و وکالت‌نامه‌ها</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contact" class="contact">
+            <h2>تماس با ما</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div>
+                        <p>تهران، خیابان ولیعصر، بالاتر از میدان ونک، ساختمان اداری آفتاب، طبقه ۵، واحد ۵۰۳</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div>
+                        <p>تلفن: ۸۸۷۶۵۴۳۲-۰۲۱</p>
+                        <p>همراه: ۰۹۱۲۱۲۳۴۵۶۷</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div>
+                        <p>info@tehran-lawyer.com</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">🕒</div>
+                    <div>
+                        <p>شنبه تا چهارشنبه: ۹ صبح تا ۵ عصر</p>
+                        <p>پنجشنبه: ۹ صبح تا ۱ بعدازظهر</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="whatsapp-contact">
+                <h3>ارسال پیام از طریق واتس‌اپ</h3>
+                <p>برای دریافت مشاوره سریع، می‌توانید مستقیما از طریق واتس‌اپ با ما در ارتباط باشید.</p>
+                
+                <div class="whatsapp-form">
+                    <div class="form-group">
+                        <label for="wa-name">نام و نام خانوادگی:</label>
+                        <input type="text" id="wa-name" placeholder="نام خود را وارد کنید">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="wa-service">نوع خدمات مورد نیاز:</label>
+                        <select id="wa-service">
+                            <option value="" disabled selected>انتخاب کنید</option>
+                            <option value="حقوق مدنی">حقوق مدنی</option>
+                            <option value="حقوق خانواده">حقوق خانواده</option>
+                            <option value="حقوق املاک">حقوق املاک</option>
+                            <option value="حقوق تجارت">حقوق تجارت</option>
+                            <option value="حقوق کیفری">حقوق کیفری</option>
+                            <option value="مشاوره حقوقی">مشاوره حقوقی</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="wa-message">توضیحات مختصر:</label>
+                        <textarea id="wa-message" placeholder="توضیحات خود را وارد کنید"></textarea>
+                    </div>
+                    
+                    <a href="#" id="whatsapp-btn" class="btn whatsapp-btn">
+                        <svg class="whatsapp-icon" viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="currentColor" d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.101-.473-.15-.673.15-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.136-.135.301-.345.451-.523.146-.181.194-.301.297-.496.1-.21.049-.375-.025-.524-.075-.15-.672-1.62-.922-2.206-.24-.584-.487-.51-.672-.51-.172-.015-.371-.015-.571-.015-.2 0-.523.074-.797.359-.273.3-1.045 1.02-1.045 2.475s1.07 2.865 1.219 3.075c.149.18 2.095 3.195 5.076 4.483.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.196-.571-.346m-5.547-11.82l.004-.001a9.55 9.55 0 00-8.113 14.97L1 22l4.059-1.066a9.53 9.53 0 004.575 1.166h.004a9.55 9.55 0 000-19.11m0 17.367a7.94 7.94 0 01-4.05-1.11l-.293-.173-3.033.794.81-2.952-.19-.304a7.95 7.95 0 01-1.218-4.221a7.98 7.98 0 017.973-7.97a7.98 7.98 0 010 15.936" />
+                        </svg>
+                        ارسال پیام به شماره +۹۸۹۱۸۳۶۲۰۵۷۴
+                    </a>
+                </div>
+            </div>
+            
+            <style>
+                .whatsapp-contact {
+                    background-color: var(--secondary-color);
+                    padding: 1.5rem;
+                    border-radius: 8px;
+                    margin-top: 2rem;
+                }
+                
+                .whatsapp-form {
+                    margin-top: 1.5rem;
+                }
+                
+                .form-group {
+                    margin-bottom: 1rem;
+                }
+                
+                .form-group label {
+                    display: block;
+                    margin-bottom: 0.5rem;
+                    font-weight: 500;
+                }
+                
+                .whatsapp-btn {
+                    background-color: #25D366;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0.5rem;
+                    margin-top: 1.5rem;
+                }
+                
+                .whatsapp-btn:hover {
+                    background-color: #1da851;
+                }
+                
+                .whatsapp-icon {
+                    width: 24px;
+                    height: 24px;
+                }
+            </style>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="social-icons">
+            <a href="#" class="social-icon">
+                <span class="en-text">LinkedIn</span>
+            </a>
+            <a href="#" class="social-icon">
+                <span class="en-text">Instagram</span>
+            </a>
+            <a href="#" class="social-icon">
+                <span class="en-text">Telegram</span>
+            </a>
+            <a href="#" class="social-icon">
+                <span class="en-text">WhatsApp</span>
+            </a>
+        </div>
+        
+        <p class="copyright">تمامی حقوق برای دفتر حقوقی تهران محفوظ است. &copy; ۱۴۰۴</p>
+        <p class="en-text" style="font-size: 0.8rem; margin-top: 0.5rem;">Designed with ❤️ for Dariush Dehghani</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const navLinks = document.querySelector('.nav-links');
+            
+            mobileMenu.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+            
+            // Smooth scrolling for internal links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        navLinks.classList.remove('active');
+                        mobileMenu.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Handle WhatsApp message creation
+            const whatsappBtn = document.getElementById('whatsapp-btn');
+            if (whatsappBtn) {
+                whatsappBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const nameInput = document.getElementById('wa-name');
+                    const serviceInput = document.getElementById('wa-service');
+                    const messageInput = document.getElementById('wa-message');
+                    
+                    // Basic validation
+                    if (!nameInput.value.trim()) {
+                        nameInput.style.borderColor = 'red';
+                        return;
+                    } else {
+                        nameInput.style.borderColor = '';
+                    }
+                    
+                    if (!serviceInput.value) {
+                        serviceInput.style.borderColor = 'red';
+                        return;
+                    } else {
+                        serviceInput.style.borderColor = '';
+                    }
+                    
+                    // Create the WhatsApp message
+                    const phone = '989183620574'; // Lawyer's WhatsApp number
+                    const name = nameInput.value.trim();
+                    const service = serviceInput.value;
+                    const message = messageInput.value.trim();
+                    
+                    // Format the message for WhatsApp
+                    const whatsappMessage = `سلام، من ${name} هستم.%0A%0Aموضوع: ${service}%0A%0A${message}`;
+                    
+                    // Open WhatsApp with the pre-filled message
+                    window.open(`https://wa.me/${phone}?text=${whatsappMessage}`, '_blank');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
